@@ -22,13 +22,45 @@ angular
       })
       .state('login', {
         url: '/login',
-        templateUrl: 'auth/login.html'
+        controller: 'AuthCtrl as authCtrl',
+        templateUrl: 'auth/login.html',
+        resolve: {
+          requireNoAuth: function ($state, Auth) {
+            return Auth.$requireSignIn()
+            .then(function (auth) {
+              $state.go('home');
+            }, function (error) {
+              return;
+            });
+          }
+        }
       })
       .state('register', {
         url: '/register',
-        templateUrl: 'auth/register.html'
+        controller: 'AuthCtrl as authCtrl',
+        templateUrl: 'auth/register.html',
+        resolve: {
+          requireNoAuth: function ($state, Auth) {
+            return Auth.$requireSignIn()
+            .then(function (auth) {
+              $state.go('home');
+            }, function (error) {
+              return;
+            });
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/');
   })
-  .constant('FirebaseUrl', 'https://slack.firebaseio.com/');
+  .config(function(FBCreds){
+    var config = {
+      apiKey: FBCreds.apiKey,
+      authDomain: FBCreds.authDomain,
+      databaseURL: FBCreds.databaseURL,
+      storageBucket: FBCreds.storageBucket,
+      projectId: FBCreds.projectId,
+      messagingSenderId: FBCreds.messagingSenderId
+    };
+    firebase.initializeApp(config);
+  });
