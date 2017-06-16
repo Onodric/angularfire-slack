@@ -31,4 +31,14 @@ angular
 
     $urlRouterProvider.otherwise('/');
   })
-  .constant('FirebaseUrl', 'https://slack.firebaseio.com/');
+  .config(function(){
+    var config = {
+      apiKey: FBCreds.apiKey,
+      authDomain: FBCreds.authDomain,
+      databaseURL: FBCreds.databaseURL,
+      storageBucket: FBCreds.storageBucket,
+      projectId: FBCreds.projectId,
+      messagingSenderId: FBCreds.messagingSenderId
+    };
+    firebase.initializeApp(config);
+  });
