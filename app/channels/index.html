@@ -7,6 +7,13 @@
 
     <div class="channel-list">
       <div class="list-head">Channels</div>
+      <div class="channel" ng-repeat="channel in channelsCtrl.channels">
+        <a># {{ channel.name }}</a>
+      </div>
+
+      <div class="channel create">
+        <a ui-sref="channels.create">+ Create Channel</a>
+      </div>
     </div>
 
     <div class="my-info">
@@ -27,4 +34,9 @@
     </div>
 
   </div>
+
+  <div class="message-pane">
+    <ui-view></ui-view>
+  </div>
+
 </div>
