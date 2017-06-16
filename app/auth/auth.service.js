@@ -1,9 +1,9 @@
 "use strict";
 
 angular
-  .module('angularfireSlackApp', [])
+  .module('angularfireSlackApp')
   .factory('Auth', ['$firebaseAuth', function ($firebaseAuth) {
     var auth = $firebaseAuth();
 
-    return Auth;
+    return auth;
   }]);
